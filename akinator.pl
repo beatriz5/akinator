@@ -1,4 +1,4 @@
-% No modificar la lista de animales mientras el juego funciona!
+% No modificar el archivo de animales una vez akinator.pl está cargado!
 :- [animales].
 
 % Punto de entrada del juego
@@ -23,11 +23,7 @@ preguntas([
     pregunta(tamano(grande), tamano(_), 'Es grande?')
 ]).
 
-% Arte disponible
-arte(gallina, 'art/gallina.txt').
-arte(perro, 'art/perro.txt').
-
-% Carga los animales y los acumula a una lista.
+% Acumula los animales a una lista.
 animales(Animales) :- findall(animal(N, Ds), animal(N, Ds), Animales).
 
 % Hace todas las preguntas y obtiene las conclusiones.
@@ -38,9 +34,9 @@ hacer_preguntas(Candidatos, Candidatos1, Tiene1) :-
 
 % Hace preguntas y obtiene conclusiones.
 hacer_preguntas([], Candidatos, Tiene, Candidatos, Tiene).
-hacer_preguntas([Personaje|Personajes], Candidatos, Tiene, Candidatos1, Tiene1) :-
-    hacer_pregunta(Personaje, Candidatos, Tiene, Cs, Ts),
-    hacer_preguntas(Personajes, Cs, Ts, Candidatos1, Tiene1).
+hacer_preguntas([Pregunta|Preguntas], Candidatos, Tiene, Candidatos1, Tiene1) :-
+    hacer_pregunta(Pregunta, Candidatos, Tiene, Cs, Ts),
+    hacer_preguntas(Preguntas, Cs, Ts, Candidatos1, Tiene1).
 
 % Realiza una pregunta y obtiene conclusiones.
 hacer_pregunta(Pregunta, Candidatos, Tiene, Candidatos1, Tiene1) :-
@@ -89,7 +85,7 @@ evaluar_candidatos(Candidatos, Tiene) :-
     ; evaluar_candidatos(Candidatos, Tiene)
     ).
 
-% Anade un animal a partir de sus datos conocidos
+% Añade un animal a partir de sus datos conocidos.
 nuevo_animal(Tiene) :-
     writeln('No reconozco tu animal, quieres anadirlo? '),
     read(Respuesta),
@@ -109,16 +105,21 @@ nuevo_animal(Tiene) :-
     ; nuevo_animal(Tiene)
     ).
 
-% Muestra, si existe, el arte relacionado con un animal
+% Muestra, si existe, el arte ASCII de un animal.
 mostrar_arte(Nombre) :-
-    arte(Nombre, Archivo),
-    see(Archivo),
-    seeing(Stream),
-    read_string(Stream, _, Art),
-    seen,
-    writeln(Art)
+    ruta_arte(Nombre, Ruta) ->
+        open(Ruta, read, Stream),
+        read_string(Stream, _, Arte),
+        close(Stream),
+        writeln(Arte)
     % Si no existe, lo ignoramos.
     ; true.
+
+% Obtiene, si existe, la ruta al arte ASCII de un animal.
+ruta_arte(Nombre, Ruta) :-
+    directory_file_path('art', Nombre, Base),
+    file_name_extension(Base, 'txt', Ruta),
+    access_file(Ruta, read).
 
 % Predicados para entrada de usuario
 jugar(j).
