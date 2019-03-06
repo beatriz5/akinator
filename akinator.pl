@@ -1,4 +1,4 @@
-% No modificar el archivo de animales una vez akinator.pl está cargado!
+﻿% No modificar el archivo de animales una vez akinator.pl está cargado!
 :- [animales].
 
 % Punto de entrada del juego
@@ -17,10 +17,22 @@ main :-
 % pregunta(Nombre, CondicionYaTiene, Mensaje).
 preguntas([
     pregunta(huevos, huevos, 'Pone huevos?'),
-    pregunta(plumas, plumas, 'Tiene plumas?'),
+    pregunta(cuerno, cuerno, 'Tiene algún cuerno?'),
+    pregunta(existe, existe, 'Existe?'),
+    pregunta(domesticado, domesticado, 'Esta domesticado?'),
+    pregunta(negro, negro, 'Se puede ser negro?'),
+    pregunta(comer, comer, 'En España se come?'),
     pregunta(olfato, olfato, 'Tiene buen olfato?'),
     pregunta(tamano(pequeno), tamano(_), 'Es pequeno?'),
-    pregunta(tamano(grande), tamano(_), 'Es grande?')
+    pregunta(tamano(grande), tamano(_), 'Es grande?'),
+    pregunta(tipo(mamifero), tipo(_), 'Es mamifero?'),
+    pregunta(tipo(pez), tipo(_), 'Es pez?'),
+    pregunta(tipo(reptil), tipo(_), 'Es reptil?'),
+    pregunta(tipo(anfibio), tipo(_), 'Es anfibio?'),
+    pregunta(tipo(ave), tipo(_), 'Es ave?'),
+    pregunta(tipo(insecto), tipo(_), 'Es insecto?'),
+    pregunta(habitat(agua), habitat(_), 'Es de habitat acuatico?'),
+    pregunta(habitat(tierra), habitat(_), 'Es de habitat terrestre?')
 ]).
 
 % Acumula los animales a una lista.
