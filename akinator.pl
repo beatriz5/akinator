@@ -1,6 +1,8 @@
 ﻿% No modificar el archivo de animales una vez akinator.pl está cargado!
 :- [animales].
 
+:- use_module(library(random), [random_permutation/2]).
+
 % Punto de entrada del juego
 jugar :-
     writeln('Jugar o salir?'),
