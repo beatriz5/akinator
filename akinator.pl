@@ -3,14 +3,14 @@
 
 % Punto de entrada del juego
 jugar :-
-    writeln('jugando o salir?'),
+    writeln('Jugar o salir?'),
     read(Respuesta),
-    ( jugando(Respuesta) ->
+    ( respuesta(jugar, Respuesta) ->
         animales(Animales),
         hacer_preguntas(Animales, Candidatos, Tiene),
         evaluar_candidatos(Candidatos, Tiene),
         jugar
-    ; salir(Respuesta) -> true
+    ; respuesta(salir, Respuesta) -> true
     ; jugar ).
 
 % Lista de preguntas
@@ -60,8 +60,8 @@ hacer_pregunta(Pregunta, Candidatos, Tiene, Candidatos1, Tiene1) :-
         % Si no conocemos un dato relacionado, preguntamos y filtramos los candidatos
         writeln(Mensaje),
         read(Respuesta),
-        ( si(Respuesta) -> filtrar_tiene(Dato, Candidatos, Candidatos1), Tiene1 = [Dato|Tiene]
-        ; no(Respuesta) -> filtrar_no_tiene(Dato, Candidatos, Candidatos1), Tiene1 = Tiene
+        ( respuesta(si, Respuesta) -> filtrar_tiene(Dato, Candidatos, Candidatos1), Tiene1 = [Dato|Tiene]
+        ; respuesta(no, Respuesta) -> filtrar_no_tiene(Dato, Candidatos, Candidatos1), Tiene1 = Tiene
         ; hacer_pregunta(Pregunta, Candidatos, Tiene, Candidatos1, Tiene1)
         )
     ).
@@ -92,8 +92,8 @@ evaluar_candidatos(Candidatos, Tiene) :-
     Candidatos = [animal(Nombre, _)|Cs],
     format('Tu animal es ~s?~n', [Nombre]),
     read(Respuesta),
-    ( si(Respuesta) -> mostrar_arte(Nombre)
-    ; no(Respuesta) -> evaluar_candidatos(Cs, Tiene)
+    ( respuesta(si, Respuesta) -> mostrar_arte(Nombre)
+    ; respuesta(no, Respuesta) -> evaluar_candidatos(Cs, Tiene)
     ; evaluar_candidatos(Candidatos, Tiene)
     ).
 
@@ -101,7 +101,7 @@ evaluar_candidatos(Candidatos, Tiene) :-
 nuevo_animal(Tiene) :-
     writeln('No reconozco tu animal, quieres anadirlo? '),
     read(Respuesta),
-    ( si(Respuesta) ->
+    ( respuesta(si, Respuesta) ->
         % Preguntamos por el nombre del nuevo animal
         writeln('Como se llama?'),
         read(Nombre),
@@ -113,7 +113,7 @@ nuevo_animal(Tiene) :-
             told
         ; nuevo_animal(Tiene)
         )
-    ; no(Respuesta) -> true
+    ; respuesta(no, Respuesta) -> true
     ; nuevo_animal(Tiene)
     ).
 
@@ -134,23 +134,20 @@ ruta_arte(Nombre, Ruta) :-
     access_file(Ruta, read).
 
 % Predicados para entrada de usuario
-jugando(j).
-jugando(jugando).
-jugando(p).
-jugando(play).
-
-salir(s).
-salir(salir).
-salir(x).
-salir(e).
-salir(exit).
-salir(q).
-salir(quit).
-
-si(s).
-si(si).
-si(y).
-si(yes).
-
-no(n).
-no(no).
+respuesta(jugar, j).
+respuesta(jugar, jugando).
+respuesta(jugar, p).
+respuesta(jugar, play).
+respuesta(salir, s).
+respuesta(salir, salir).
+respuesta(salir, x).
+respuesta(salir, e).
+respuesta(salir, exit).
+respuesta(salir, q).
+respuesta(salir, quit).
+respuesta(si, s).
+respuesta(si, si).
+respuesta(si, y).
+respuesta(si, yes).
+respuesta(no, n).
+respuesta(no, no).
