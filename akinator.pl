@@ -3,15 +3,15 @@
 
 % Punto de entrada del juego
 jugar :-
-    writeln('Jugar o salir?'),
+    writeln('jugando o salir?'),
     read(Respuesta),
-    ( jugar(Respuesta) ->
+    ( jugando(Respuesta) ->
         animales(Animales),
         hacer_preguntas(Animales, Candidatos, Tiene),
         evaluar_candidatos(Candidatos, Tiene),
-        main
+        jugar
     ; salir(Respuesta) -> true
-    ; main ).
+    ; jugar ).
 
 % Lista de preguntas
 % pregunta(Nombre, CondicionYaTiene, Mensaje).
@@ -134,10 +134,10 @@ ruta_arte(Nombre, Ruta) :-
     access_file(Ruta, read).
 
 % Predicados para entrada de usuario
-jugar(j).
-jugar(jugar).
-jugar(p).
-jugar(play).
+jugando(j).
+jugando(jugando).
+jugando(p).
+jugando(play).
 
 salir(s).
 salir(salir).
