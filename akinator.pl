@@ -54,10 +54,10 @@ hacer_preguntas([Pregunta|Preguntas], Candidatos, Tiene, Candidatos1, Tiene1) :-
 hacer_pregunta(Pregunta, Candidatos, Tiene, Candidatos1, Tiene1) :-
     pregunta(Dato, CondicionYaTiene, Mensaje) = Pregunta,
     ( memberchk(CondicionYaTiene, Tiene) ->
-        % Si ya conocemos un dato relacionado, omitimos la pregunta
+        % Si ya conocemos un dato relacionado, omitimos la pregunta.
         Candidatos1 = Candidatos, Tiene1 = Tiene
     ;
-        % Si no conocemos un dato relacionado, preguntamos y filtramos los candidatos
+        % Si no conocemos un dato relacionado, preguntamos y filtramos los candidatos.
         writeln(Mensaje),
         read(Respuesta),
         ( respuesta(si, Respuesta) -> filtrar_tiene(Dato, Candidatos, Candidatos1), Tiene1 = [Dato|Tiene]
