@@ -2,7 +2,7 @@
 :- [animales].
 
 % Punto de entrada del juego
-main :-
+jugar :-
     writeln('Jugar o salir?'),
     read(Respuesta),
     ( jugar(Respuesta) ->
