@@ -14,3 +14,5 @@ animal(gallina, [huevos, existe, domesticado, comer, tamano(pequeno), tipo(ave),
 animal(gato, [existe, domesticado, negro, olfato, tamano(pequeno), tipo(mamifero), habitat(tierra)]).
 animal(perro, [existe, domesticado, negro, olfato, tamano(pequeno), tipo(mamifero), habitat(tierra)]).
 animal(lobo, [existe, negro, olfato, tamano(grande), tipo(mamifero), habitat(tierra)]).
+animal(gorila, [habitat(tierra), olfato, tamano(grande), negro, tipo(mamifero), existe]).
+

@@ -1,4 +1,5 @@
 ﻿% No modificar el archivo de animales una vez akinator.pl está cargado!
+%no cambios a animales en tiempo de ejec
 :- [animales].
 
 :- use_module(library(random), [random_permutation/2]).
@@ -7,17 +8,19 @@
 jugar :-
     writeln('Jugar o salir?'),
     read(Respuesta),
-    ( respuesta(jugar, Respuesta) ->
+    ( respuesta(jugar, Respuesta) ->    %respuesta(jugar, j).
         animales(Animales),
         hacer_preguntas(Animales, Candidatos, Tiene),
         evaluar_candidatos(Candidatos, Tiene),
         jugar
-    ; respuesta(salir, Respuesta) -> true
+    ; respuesta(salir, Respuesta) -> true  %respuesta(salir, q).
     ; jugar ).
 
 % Lista de preguntas
 % pregunta(Nombre, CondicionYaTiene, Mensaje).
 preguntas([
+    %preguntas es un predicado que tienes 1 lista de terminos 
+    %(un termino ej pregunta(huevos, huevos, 'Pone huevos?'),)
     pregunta(huevos, huevos, 'Pone huevos?'),
     pregunta(cuerno, cuerno, 'Tiene algún cuerno?'),
     pregunta(existe, existe, 'Existe?'),
@@ -41,12 +44,12 @@ preguntas([
 animales(Animales) :- findall(animal(N, Ds), animal(N, Ds), Animales).
 
 % Hace todas las preguntas y obtiene las conclusiones.
-hacer_preguntas(Candidatos, Candidatos1, Tiene1) :-
+hacer_preguntas(Candidatos, Candidatos1, Tiene1) :-   %hacer_preguntas(Animales, Candidatos, Tiene),
     preguntas(Ps),
     random_permutation(Ps, Ps1),
     hacer_preguntas(Ps1, Candidatos, [], Candidatos1, Tiene1).
 
-% Hace preguntas y obtiene conclusiones.
+% Hace preguntas y obtiene conclusiones.   %los acabados en 1 son resultado final
 hacer_preguntas([], Candidatos, Tiene, Candidatos, Tiene).
 hacer_preguntas([Pregunta|Preguntas], Candidatos, Tiene, Candidatos1, Tiene1) :-
     hacer_pregunta(Pregunta, Candidatos, Tiene, Cs, Ts),
@@ -54,14 +57,15 @@ hacer_preguntas([Pregunta|Preguntas], Candidatos, Tiene, Candidatos1, Tiene1) :-
 
 % Realiza una pregunta y obtiene conclusiones.
 hacer_pregunta(Pregunta, Candidatos, Tiene, Candidatos1, Tiene1) :-
-    pregunta(Dato, CondicionYaTiene, Mensaje) = Pregunta,
+    %descompone pregunta a como era originalmente
+    pregunta(Dato, CondicionYaTiene, Mensaje) = Pregunta, 
     ( memberchk(CondicionYaTiene, Tiene) ->
         % Si ya conocemos un dato relacionado, omitimos la pregunta.
         Candidatos1 = Candidatos, Tiene1 = Tiene
     ;
         % Si no conocemos un dato relacionado, preguntamos y filtramos los candidatos.
         writeln(Mensaje),
-        read(Respuesta),
+        read(Respuesta),       %respuesta(si, s). deja los que tiene el dato vs deja los que no lo tiene
         ( respuesta(si, Respuesta) -> filtrar_tiene(Dato, Candidatos, Candidatos1), Tiene1 = [Dato|Tiene]
         ; respuesta(no, Respuesta) -> filtrar_no_tiene(Dato, Candidatos, Candidatos1), Tiene1 = Tiene
         ; hacer_pregunta(Pregunta, Candidatos, Tiene, Candidatos1, Tiene1)
@@ -79,8 +83,8 @@ filtrar_tiene(Dato, [C|Cs], Candidatos1) :-
 
 % Filtra los candidatos que no tienen cierto dato.
 % Es identica a filtrar_tiene/2 con las ramas del condicional intercambiadas.
-filtrar_no_tiene(_, [], []).
-filtrar_no_tiene(Dato, [C|Cs], Candidatos1) :-
+filtrar_no_tiene(_, [], []).    
+filtrar_no_tiene(Dato, [C|Cs], Candidatos1) :-   %deja los que no lo tiene
     C = animal(_, Datos),
     ( memberchk(Dato, Datos) -> Candidatos1 = Cs1
     ; Candidatos1 = [C|Cs1]
@@ -90,11 +94,11 @@ filtrar_no_tiene(Dato, [C|Cs], Candidatos1) :-
 % Pregunta si alguno de los candidatos finales es correcto.
 % Si no, crea uno nuevo.
 evaluar_candidatos([], Tiene) :- nuevo_animal(Tiene).
-evaluar_candidatos(Candidatos, Tiene) :-
+evaluar_candidatos(Candidatos, Tiene) :-    
     Candidatos = [animal(Nombre, _)|Cs],
     format('Tu animal es ~s?~n', [Nombre]),
     read(Respuesta),
-    ( respuesta(si, Respuesta) -> mostrar_arte(Nombre)
+    ( respuesta(si, Respuesta) -> mostrar_arte(Nombre)   %respuesta(si, y).
     ; respuesta(no, Respuesta) -> evaluar_candidatos(Cs, Tiene)
     ; evaluar_candidatos(Candidatos, Tiene)
     ).
@@ -109,10 +113,10 @@ nuevo_animal(Tiene) :-
         read(Nombre),
         ( atom(Nombre), \+ animal(Nombre, _) ->
             % Si es correcto y no esta en la lista, lo anadimos
-            assertz(animal(Nombre, Tiene)),
-            tell('animales.pl'),
-            listing(animal/2),
-            told
+            assertz(animal(Nombre, Tiene)), %añade nuevo predicado
+            tell('animales.pl'),            %abre arch
+            listing(animal/2),          %guarda arch
+            told                        %cierra
         ; nuevo_animal(Tiene)
         )
     ; respuesta(no, Respuesta) -> true
