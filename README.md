@@ -1,6 +1,6 @@
 # Akinator
 
-An Akinator game that will guess the animal you think of through yes or no questions. The program follows a declarative programming paradigm. The currently available animals are gorilla, wolf, dog, cat, chicken, deer, parrot, dove, snake, frog, whale, hamster, unicorn, dodo, and fly.  When the program figures out the animal you are thinking of, it will display an ASCII art of the correct answer. If the animal is not on the list, it can be add in execution time.
+An Akinator game that will guess the animal you think of through yes or no questions. The program follows a declarative programming paradigm. The currently available animals are whale, deer, dodo, chicken, cat, hamster, parrot, fly, dove, dog, frog, snake, and unicorn.  When the program figures out the animal you are thinking of, it will display an ASCII art of the correct answer. If the animal is not on the list, it can be add in execution time.
 
 ## Demonstration
 
