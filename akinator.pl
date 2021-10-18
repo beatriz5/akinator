@@ -20,24 +20,24 @@ jugar :-
 % pregunta(Nombre, CondicionYaTiene, Mensaje).
 preguntas([
     %preguntas es un predicado que tienes 1 lista de terminos 
-    %(un termino ej pregunta(huevos, huevos, 'Pone huevos?'),)
-    pregunta(huevos, huevos, 'Pone huevos?'),
-    pregunta(cuerno, cuerno, 'Tiene algún cuerno?'),
-    pregunta(existe, existe, 'Existe?'),
-    pregunta(domesticado, domesticado, 'Esta domesticado?'),
-    pregunta(negro, negro, 'Se puede ser negro?'),
-    pregunta(comer, comer, 'En España se come?'),
-    pregunta(olfato, olfato, 'Tiene buen olfato?'),
-    pregunta(tamano(pequeno), tamano(_), 'Es pequeno?'),
-    pregunta(tamano(grande), tamano(_), 'Es grande?'),
-    pregunta(tipo(mamifero), tipo(_), 'Es mamifero?'),
-    pregunta(tipo(pez), tipo(_), 'Es pez?'),
-    pregunta(tipo(reptil), tipo(_), 'Es reptil?'),
-    pregunta(tipo(anfibio), tipo(_), 'Es anfibio?'),
-    pregunta(tipo(ave), tipo(_), 'Es ave?'),
-    pregunta(tipo(insecto), tipo(_), 'Es insecto?'),
-    pregunta(habitat(agua), habitat(_), 'Es de habitat acuatico?'),
-    pregunta(habitat(tierra), habitat(_), 'Es de habitat terrestre?')
+    %(un termino ej pregunta(huevos, huevos, 'Does it lay eggs?'),)
+    pregunta(huevos, huevos, 'Does it lay eggs?'),
+    pregunta(cuerno, cuerno, 'Any horns?'),
+    pregunta(existe, existe, 'Does the animal exist?'),
+    pregunta(domesticado, domesticado, 'Is it a domesticated animal?'),
+    pregunta(negro, negro, 'Is the animal black?'),
+    pregunta(comer, comer, 'Do people eat this animal?'),
+    pregunta(olfato, olfato, 'Does it have a good sense of smell?'),
+    pregunta(tamano(pequeno), tamano(_), 'Is it small?'),
+    pregunta(tamano(grande), tamano(_), 'Is it big?'),
+    pregunta(tipo(mamifero), tipo(_), 'Is it a mammal?'),
+    pregunta(tipo(pez), tipo(_), 'IS it a fish?'),
+    pregunta(tipo(reptil), tipo(_), 'Is it a reptile?'),
+    pregunta(tipo(anfibio), tipo(_), 'Is it amphibian?'),
+    pregunta(tipo(ave), tipo(_), 'Is it a bird?'),
+    pregunta(tipo(insecto), tipo(_), 'Is it an insect?'),
+    pregunta(habitat(agua), habitat(_), 'Is it aquatic?'),
+    pregunta(habitat(tierra), habitat(_), 'Is it a terrestial animal?')
 ]).
 
 % Acumula los animales a una lista.
